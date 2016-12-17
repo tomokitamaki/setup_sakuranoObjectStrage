@@ -2,17 +2,17 @@
 
 set -xeu
 
-echo "バケット名を入力してください"
+echo "Please enter BUCKET NAME"
 read mybucket
 echo ""
-echo "アクセスキーを入力してください。"
+echo "Please enter ACCESSKEY"
 read accesskey
 echo ""
-echo "シークレットキーを入力してください"
+echo "Please enter SECRETKEY"
 read secretkey
 
 # 必要なものをインストール
-yum install yum install pkgconfig libcurl libcurl-devel libxml2-devel make automake gcc libstdc++-devel gcc-c++ openssl-devel wget fuse-devel
+yum install -y yum install pkgconfig libcurl libcurl-devel libxml2-devel make automake gcc libstdc++-devel gcc-c++ openssl-devel wget fuse-devel
 
 # ここからs3fsのインストール
 cd /usr/local/src
@@ -41,7 +41,7 @@ mkdir -p /mnt/objstragedir
 s3fs $mybucket /mnt/objstragedir/ -o allow_other,url=https://b.sakurastorage.jp,nomultipart
 
 # アップロードテスト
-dd if=/dev/nul of=/mnt/objstragedir/test1MB bs=1MB count=1
+dd if=/dev/zero of=/mnt/objstragedir/test1MB bs=1MB count=1
 # 変更テスト
 mv /mnt/objstragedir/test1MB /mnt/objstragedir/test1MBBB
 # ダウンロードテスト
